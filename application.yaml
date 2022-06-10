@@ -4,14 +4,14 @@ metadata:
   name: argo-app
   namespace: argocd
 spec:
-  project: development
+  project: default
   source:
     repoURL: https://github.com/kronolith1/k3s.git
     targetRevision: HEAD
     path: development
   destination: 
     server: https://kubernetes.default.svc
-    namespace: myapp
+    namespace: development
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
