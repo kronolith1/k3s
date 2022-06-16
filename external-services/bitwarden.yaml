@@ -45,5 +45,3 @@ spec:
   - hosts:
     - bitwarden.tunnel61.dev
     secretName: bitwarden-tunnel61-tls
-
-

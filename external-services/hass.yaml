@@ -45,5 +45,3 @@ spec:
   - hosts:
     - hass.tunnel61.dev
     secretName: hass-tunnel61-tls
-
-
