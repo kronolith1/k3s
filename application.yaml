@@ -9,6 +9,8 @@ spec:
       elements:
       - folder: external-services
         namespace: external-services
+      - folder: cert-manager
+        namespace: cert-manager
   template:
     metadata:
       name: '{{folder}}'
