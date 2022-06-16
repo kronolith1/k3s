@@ -17,7 +17,7 @@ spec:
       source:
         repoURL: https://github.com/kronolith1/k3s.git
         targetRevision: HEAD
-        path: /{{folder}}
+        path: '{{folder}}'
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{namespace}}'

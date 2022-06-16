@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitwarden-external
+spec:
+  ports:
+  - name: app
+    port: 7277
+    protocol: TCP
+    targetPort: 7277
+  clusterIP: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: bitwarden-external
+subsets:
+- addresses:
+  - ip: 172.16.0.133
+  ports:
+  - name: app
+    port: 7277
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+  name: bitwarden-tunnel61
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: bitwarden.tunnel61.dev
+    http:
+      paths:
+      - backend:
+          service:
+            name: bitwarden-external
+            port:
+              number: 7277
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - bitwarden.tunnel61.dev
+    secretName: bitwarden-tunnel61-tls
+
+
