@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hass-external
+spec:
+  ports:
+  - name: app
+    port: 8123
+    protocol: TCP
+    targetPort: 8123
+  clusterIP: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: hass-external
+subsets:
+- addresses:
+  - ip: 172.16.0.133
+  ports:
+  - name: app
+    port: 8123
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+  name: hass-tunnel61
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hass.tunnel61.dev
+    http:
+      paths:
+      - backend:
+          service:
+            name: hass-external
+            port:
+              number: 8123
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - hass.tunnel61.dev
+    secretName: hass-tunnel61-tls
+
+
