@@ -28,7 +28,6 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
   name: hass-tunnel61
-  namespace: default
 spec:
   ingressClassName: nginx
   rules:
